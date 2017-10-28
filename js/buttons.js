@@ -58,19 +58,17 @@ class Buttons {
 
         let activity = new Activity();
         let activityRecord = activity.returnActivity('Work End', activityTime.format('HH:mm:ss'));
-        
-
         let isPauseInProgress = $('#break-button').attr("data-pause-in-progress");
 
         if(isPauseInProgress == 1) { 
-        let breaksLeft = window.Freelancer.max_daily_breaks - window.Freelancer.taken_daily_breaks;          
-        $('#break-button').val('Start Break (' + breaksLeft + ')');
-        $('#break-button').attr("data-pause-in-progress", 0);
-        $('#break-button').removeClass("btn-warning");
-        $('#break-button').addClass("btn-success");
+          let breaksLeft = window.Freelancer.max_daily_breaks - window.Freelancer.taken_daily_breaks;          
+          $('#break-button').val('Start Break (' + breaksLeft + ')');
+          $('#break-button').attr("data-pause-in-progress", 0);
+          $('#break-button').removeClass("btn-warning");
+          $('#break-button').addClass("btn-success");
 
           let activity = new Activity();
-          let activityRecord = activity.returnActivity('Break Ended', activityTime.format('HH:mm:ss'));
+          let activityRecord = activity.returnActivity('Break Ended (' + breaksLeft + ')', activityTime.format('HH:mm:ss'));
           $('#daily_activity').append(activityRecord);   
 
           let hour = moment.duration(1, 'hours');
@@ -105,14 +103,16 @@ class Buttons {
         $('#break-button').addClass("btn-warning");
 
         let activity = new Activity();
-        let activityRecord = activity.returnActivity('Break Started', activityTime.format('HH:mm:ss'));
+        let activityRecord = activity.returnActivity('Break Started (' + breaksLeft + ')', activityTime.format('HH:mm:ss'));
         $('#daily_activity').append(activityRecord);
         window.Freelancer.taken_daily_breaks += 1;
         window.Freelancer.break_time_start_timestamp = activityTime;
 
       } else {
+
         let breaksLeft = window.Freelancer.max_daily_breaks - window.Freelancer.taken_daily_breaks;
         $('#break-button').val('Start Break (' + breaksLeft + ')');
+
         $('#break-button').attr("data-pause-in-progress", 0);
         $('#break-button').removeClass("btn-warning");
         $('#break-button').addClass("btn-success");  
@@ -121,8 +121,10 @@ class Buttons {
         window.Freelancer.break_time_duration += window.Freelancer.break_time_stop_timestamp - window.Freelancer.break_time_start_timestamp + hour;
 
         let activity = new Activity();
-        let activityRecord = activity.returnActivity('Break Ended', activityTime.format('HH:mm:ss'));
+        let activityRecord = activity.returnActivity('Break Ended (' + (breaksLeft + 1) + ')', activityTime.format('HH:mm:ss'));
         $('#daily_activity').append(activityRecord);
+   
+
 
       }
     }
