@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Freelancer Task</title>
+
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/datastore.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
+<script type="text/javascript" src="js/buttons.js"></script>
+<script type="text/javascript" src="js/activity.js"></script>
+<script type="text/javascript" src="js/moment.js"></script>
+<script type="text/javascript" src="js/daterangepicker.js"></script>
+
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/daterangepicker.css">
+<link rel="stylesheet" href="css/custom.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+<link rel="stylesheet" href="css/font-awesome.min.css">
+
+</head>
+<body>
+
+	<div class="container freelancer-app-container">
+		<div class='row'>
+			<div class="col">
+				<div id="freelancer-calendar" class="pull-left">
+    					<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+    				<span></span> <b class="caret"></b>
+				</div>
+
+				<div class="pull-left freelancer-button">
+					<input id="work-button" class="btn btn-default" type="button" value="Start Work">
+				</div>
+				
+				<div class="pull-right freelancer-button">
+					<input id="break-button" class="btn btn-default" type="button" value="Start Break" data-pause-in-progress=0>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="padding: 20px;">
+			<div class="col">
+				<h3>Daily Activities</h1>
+			</div>
+			<div class="container" id="daily_activity" style="margin-left: 20px;">						 
+			</div>
+		</div>
+		<div class="row" style="padding: 20px;">
+			<div class="col">
+				<h3>Summary</h1>
+			</div>
+				<div class="container" id="summary" style="margin-left: 20px;">
+								 
+			</div>
+		</div>		
+  
+</div>
+
+

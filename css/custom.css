@@ -1,0 +1,19 @@
+
+.freelancer-app-container{
+	margin: 0 auto;
+	width: 1080px;
+}
+
+#freelancer-calendar{
+	background: #fff;
+	cursor: pointer;
+	padding: 8px 12px;
+	border: 1px solid #ccc;
+	margin-top: 2px;
+}
+
+.freelancer-button{
+	background: #fff;
+	cursor: pointer;
+	padding: 5px 10px;
+}
