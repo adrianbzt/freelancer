@@ -8,12 +8,15 @@
 	background: #fff;
 	cursor: pointer;
 	padding: 8px 12px;
-	border: 1px solid #ccc;
-	margin-top: 2px;
+	/*border: 1px solid #ccc;*/
+	width: 200px;
+	display: inline;
+	margin-left: 35%;
 }
 
 .freelancer-button{
 	background: #fff;
 	cursor: pointer;
 	padding: 5px 10px;
+	display: inline;
 }
