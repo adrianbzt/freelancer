@@ -31,6 +31,24 @@ Object.defineProperties(window.Freelancer, {
         configurable: true,
         enumerable: false,
     },
+    break_time_start_timestamp: {
+        value: '',
+        writable: true,
+        configurable: true,
+        enumerable: false,
+    },
+    break_time_stop_timestamp: {
+        value: '',
+        writable: true,
+        configurable: true,
+        enumerable: false,
+    },   
+    break_time_duration: {
+        value: 0,
+        writable: true,
+        configurable: true,
+        enumerable: false,
+    },         
     hours_worked_this_day: {
         value: 0,
         writable: true,

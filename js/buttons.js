@@ -35,7 +35,7 @@ class Buttons {
         let activityTime = moment();
         let activity = new Activity();
         let activityRecord = activity.returnActivity('Start Work', activityTime.format('HH:mm:ss'));
-        window.Freelancer.start_work_day_timestamp = activityTime.format('HH:mm:ss');
+        window.Freelancer.start_work_day_timestamp = activityTime;
 
         $('#daily_activity').append(activityRecord);
 
@@ -55,7 +55,23 @@ class Buttons {
 
         let activity = new Activity();
         let activityRecord = activity.returnActivity('Work End', activityTime.format('HH:mm:ss'));
-        window.Freelancer.end_work_day_timestamp = activityTime.format('HH:mm:ss');
+        window.Freelancer.end_work_day_timestamp = activityTime;
+
+        let isPauseInProgress = $('#break-button').attr("data-pause-in-progress");
+
+        if(isPauseInProgress == 1) { 
+        let breaksLeft = window.Freelancer.max_daily_breaks - window.Freelancer.taken_daily_breaks;          
+        $('#break-button').val('Start Break ' + breaksLeft);
+        $('#break-button').attr("data-pause-in-progress", 0);
+        $('#break-button').removeClass("btn-warning");
+        $('#break-button').addClass("btn-success");
+
+          let activity = new Activity();
+          let activityRecord = activity.returnActivity('Break Ended', activityTime.format('HH:mm:ss'));
+          $('#daily_activity').append(activityRecord);          
+        }
+
+
         $('#daily_activity').append(activityRecord);
         $('#summary').append(activity.returnSummary());
 
@@ -76,13 +92,22 @@ class Buttons {
         let activityRecord = activity.returnActivity('Break Started', activityTime.format('HH:mm:ss'));
         $('#daily_activity').append(activityRecord);
         window.Freelancer.taken_daily_breaks += 1;
+        window.Freelancer.break_time_start_timestamp = activityTime;
 
       } else {
         let breaksLeft = window.Freelancer.max_daily_breaks - window.Freelancer.taken_daily_breaks;
         $('#break-button').val('Start Break ' + breaksLeft);
         $('#break-button').attr("data-pause-in-progress", 0);
         $('#break-button').removeClass("btn-warning");
-        $('#break-button').addClass("btn-success");     
+        $('#break-button').addClass("btn-success");  
+
+        window.Freelancer.break_time_stop_timestamp = activityTime; 
+
+        let hour = moment.duration(1, 'hours');
+
+        console.log(hour);
+
+        window.Freelancer.break_time_duration += window.Freelancer.break_time_stop_timestamp - window.Freelancer.break_time_start_timestamp + hour;
 
         let activity = new Activity();
         let activityRecord = activity.returnActivity('Break Ended', activityTime.format('HH:mm:ss'));

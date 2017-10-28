@@ -8,7 +8,6 @@ $(function() {
     var start = moment();
     var maxDate = moment();
     
-
     let selectedDay = start.format(dateFormat);
 
 	$('#freelancer-calendar span').html(selectedDay);
@@ -31,7 +30,6 @@ $(function() {
      	buttons.updateButtons();
   });
 
-  $("#freelancer-calendar").trigger("click");
 
 $('#work-button').on('click', function() {
 	buttons.updateWorkButtonStatus();
