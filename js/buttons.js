@@ -28,6 +28,9 @@ class Buttons {
         $('#work-button').val('Stop Work');
         $('#break-button').prop("disabled", false);
         $('#break-button').addClass("btn-success");
+        let breaksLeft = window.Freelancer.max_daily_breaks - window.Freelancer.taken_daily_breaks;
+
+        $('#break-button').val('Start Break ' + breaksLeft);
 
         let activityTime = moment();
         let activity = new Activity();
@@ -64,17 +67,22 @@ class Buttons {
       let activityTime = moment();
 
       if(isPauseInProgress == 0) { 
+
         $('#break-button').val('Stop Break');
         $('#break-button').attr("data-pause-in-progress", 1);
+        $('#break-button').addClass("btn-warning");
 
         let activity = new Activity();
         let activityRecord = activity.returnActivity('Break Started', activityTime.format('HH:mm:ss'));
         $('#daily_activity').append(activityRecord);
-        window.Freelancer.taken_daily_breaks += 1; 
+        window.Freelancer.taken_daily_breaks += 1;
 
       } else {
-        $('#break-button').val('Start Break');
-        $('#break-button').attr("data-pause-in-progress", 0);        
+        let breaksLeft = window.Freelancer.max_daily_breaks - window.Freelancer.taken_daily_breaks;
+        $('#break-button').val('Start Break ' + breaksLeft);
+        $('#break-button').attr("data-pause-in-progress", 0);
+        $('#break-button').removeClass("btn-warning");
+        $('#break-button').addClass("btn-success");     
 
         let activity = new Activity();
         let activityRecord = activity.returnActivity('Break Ended', activityTime.format('HH:mm:ss'));
