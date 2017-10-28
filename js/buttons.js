@@ -51,11 +51,14 @@ class Buttons {
 
         let activityTime = moment();
 
-        var oneHourInMilliseconds = moment.duration(1, 'hours');
+
+        let hour = moment.duration(1, 'hours');
+
+        activityTime.add(8*hour);
 
         let activity = new Activity();
         let activityRecord = activity.returnActivity('Work End', activityTime.format('HH:mm:ss'));
-        window.Freelancer.end_work_day_timestamp = activityTime;
+        
 
         let isPauseInProgress = $('#break-button').attr("data-pause-in-progress");
 
@@ -68,9 +71,19 @@ class Buttons {
 
           let activity = new Activity();
           let activityRecord = activity.returnActivity('Break Ended', activityTime.format('HH:mm:ss'));
-          $('#daily_activity').append(activityRecord);          
-        }
+          $('#daily_activity').append(activityRecord);   
 
+          let hour = moment.duration(1, 'hours');
+
+          activityTime.add(hour);
+
+          window.Freelancer.break_time_stop_timestamp = activityTime; 
+          window.Freelancer.break_time_duration += window.Freelancer.break_time_stop_timestamp - window.Freelancer.break_time_start_timestamp + hour;
+
+        }
+        window.Freelancer.end_work_day_timestamp = activityTime;
+
+        window.Freelancer.hours_worked_this_day = Math.round((window.Freelancer.end_work_day_timestamp - window.Freelancer.start_work_day_timestamp -  window.Freelancer.break_time_duration)/hour, 0);
 
         $('#daily_activity').append(activityRecord);
         $('#summary').append(activity.returnSummary());
@@ -81,6 +94,9 @@ class Buttons {
     updateBreakButtonStatus() {
       let isPauseInProgress = $('#break-button').attr("data-pause-in-progress");
       let activityTime = moment();
+      let hour = moment.duration(1, 'hours');
+
+      activityTime.add(hour);
 
       if(isPauseInProgress == 0) { 
 
@@ -102,11 +118,6 @@ class Buttons {
         $('#break-button').addClass("btn-success");  
 
         window.Freelancer.break_time_stop_timestamp = activityTime; 
-
-        let hour = moment.duration(1, 'hours');
-
-        console.log(hour);
-
         window.Freelancer.break_time_duration += window.Freelancer.break_time_stop_timestamp - window.Freelancer.break_time_start_timestamp + hour;
 
         let activity = new Activity();
